@@ -16,7 +16,8 @@ const Signup = () => {
       method:'POST',
       body:JSON.stringify({name:creds.name,email:creds.email,password:creds.password,location:creds.location}),
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Access-Control-Allow-Origin':'*'
       }
     })
     const userData = await response.json();

@@ -16,7 +16,8 @@ const MyOrders = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'authToken': localStorage.getItem('authToken')
+                    'authToken': localStorage.getItem('authToken'),
+                    'Access-Control-Allow-Origin':'*'
                 }
             })
             const resp = await response.json();
@@ -24,6 +25,7 @@ const MyOrders = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*'
                 }
             })
             const orderresp = await orderresponse.json();

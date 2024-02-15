@@ -16,7 +16,8 @@ const Cart = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'authToken': localStorage.getItem('authToken')
+                    'authToken': localStorage.getItem('authToken'),
+                    'Access-Control-Allow-Origin':'*'
                 },
                 body: JSON.stringify({
                     totalPrice,
