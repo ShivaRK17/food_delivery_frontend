@@ -8,10 +8,11 @@ const Navbar = () => {
   const { isLogin,setIsLogin } = useUser();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
     localStorage.removeItem('authToken');
-    navigate('/login');
     setIsLogin(false);
+    navigate('/login');
   }
   return (
     <nav className="navbar navbar-dark navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
@@ -35,7 +36,7 @@ const Navbar = () => {
                     {/* <span className="visually-hidden">unread messages</span> */}
                   </span>
                 </Link>
-                <Link className="nav-item btn btn-outline-danger mx-2" aria-current="page" onClick={handleLogout}>Logout</Link>
+                <Link className="nav-item btn btn-outline-danger mx-2" aria-current="page" onClick={(e)=>handleLogout(e)}>Logout</Link>
               </div>
               : <div className='d-flex '>
                 <Link className="btn btn-outline-light mx-2" aria-current="page" to="/login">Login</Link>

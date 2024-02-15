@@ -5,9 +5,11 @@ import { useUser } from '../components/ContextReducer'
 const Signup = () => {
   const [creds, setCreds] = useState({name:"",email:"",location:"",password:"",cpassword:""})
   const {setIsLogin} = useUser();
+  const [subtxt, setSubtxt] = useState("Create Account")
   const navigate = useNavigate()
   const handleSubmit = async (e)=>{
     e.preventDefault()
+    setSubtxt("Creating Account...")
     if(creds.password!==creds.cpassword){
       return alert('Passwords don\'t match');
     }
@@ -22,6 +24,7 @@ const Signup = () => {
     })
     const userData = await response.json();
     // console.log(userData);
+    setSubtxt("Create Account")
     alert(userData.message)
     if(userData.success){
       localStorage.setItem("authToken",userData.authToken)
@@ -58,7 +61,7 @@ const Signup = () => {
           </div>
           <br />
           <Link to='/login'>Already a User ? Click here</Link>
-          <button className="btn btn-primary w-100 py-2" type="submit">Create Account</button>
+          <button disabled={subtxt==="Creating Account..."} className="btn btn-primary w-100 py-2" type="submit">{subtxt}</button>
           <p className="mt-5 mb-3 text-body-secondary">© GoFood</p>
       </form>
     </div>

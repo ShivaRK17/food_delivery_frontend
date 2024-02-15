@@ -4,10 +4,12 @@ import { useUser } from '../components/ContextReducer'
 
 const Login = () => {
   const [creds, setCreds] = useState({ email: "", password: "" })
+  const [subtxt, setSubtxt] = useState("Sign in");
   const {setIsLogin} = useUser();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubtxt("Signing in...")
     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/loginuser`, {
       method: 'POST',
       body: JSON.stringify(creds),
@@ -18,6 +20,7 @@ const Login = () => {
     }
     )
     const data = await response.json();
+    setSubtxt("Sign in")
     if(data.success){
       localStorage.setItem("authToken",data.authToken)
       setIsLogin(true);
@@ -45,7 +48,7 @@ const Login = () => {
             <label htmlFor="floatingPassword">Password</label>
           </div>
 
-          <button className="btn btn-primary w-100 py-2 my-2" type="submit">Sign in</button>
+          <button disabled={subtxt==="Signing in..."} className="btn btn-primary w-100 py-2 my-2" type="submit">{subtxt}</button>
           <p className="mt-5 mb-3 text-body-secondary">© GoFood</p>
         </form>
       </div>

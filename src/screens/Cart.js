@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCart, useDispatchCart, useUser } from '../components/ContextReducer'
 import { useNavigate } from 'react-router-dom';
 
 
 const Cart = () => {
     const { isLogin } = useUser();
+    const [subtxt, setSubtxt] = useState("Checkout")
     const data = useCart();
     const dispatch = useDispatchCart();
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Cart = () => {
 
     const handleCheckout = async () => {
         try {
+            setSubtxt("Loading...")
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/createOrder`, {
                 method: 'POST',
                 headers: {
@@ -26,6 +28,7 @@ const Cart = () => {
             });
             await response.json();
             await dispatch({ type: "EMPTY" })
+            setSubtxt("Checkout")
             alert("ORDER PLACED!!")
         } catch (err) {
             console.log(err);
@@ -68,7 +71,7 @@ const Cart = () => {
                     </tbody>
                 </table>
                 <div className="container d-flex justify-content-around">
-                    <button className='btn btn-outline-success' onClick={() => { handleCheckout() }}>Checkout</button>
+                    <button disabled={subtxt==="Loading..."} className='btn btn-outline-success' onClick={() => { handleCheckout() }}>{subtxt}</button>
                     <h4>Total Price :<b>{`₹` + totalPrice}/-</b></h4>
                 </div>
             </div>

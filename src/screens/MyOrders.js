@@ -36,6 +36,9 @@ const MyOrders = () => {
         }
     }
     useEffect(() => {
+        if(!isLogin){
+            navigate('/login')
+        }
         getOrderdetails();
         // eslint-disable-next-line
     }, [])
@@ -52,7 +55,7 @@ const MyOrders = () => {
                                 Order Details
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">Total Price: ${order.totalPrice}</h5>
+                                <h5 className="card-title">Total Price: ₹{order.totalPrice}</h5>
                                 <p className="card-text">Ordered At: {new Date(order.ordered_at).toLocaleString()}</p>
                                 <h6>Order Items:</h6>
                                 <table class="table">
