@@ -12,7 +12,8 @@ const Home = () => {
     const resp = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/getFood`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*'
       }
     })
     const data = await resp.json();
@@ -24,7 +25,8 @@ const Home = () => {
     const resp = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/getFoodCat`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*'
       }
     })
     const data = await resp.json();
